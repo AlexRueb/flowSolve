@@ -1,7 +1,7 @@
 # flowSolve
 
-So far:
-
+So far:\n
+\n
 -takes in all the board files
 
 -passes the String array to a method that converts to Node array
