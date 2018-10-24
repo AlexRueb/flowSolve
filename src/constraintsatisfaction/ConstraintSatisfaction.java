@@ -19,7 +19,7 @@ import java.util.List;
 public class ConstraintSatisfaction {
 
     
-    
+    public ConstraintSet constraint = new ConstraintSet();
     
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
