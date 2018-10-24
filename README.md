@@ -13,3 +13,10 @@ So far:
 -dummy methods for smartSolve and dumbSolve
 
 -printBoard method --> prints the Node array board, not String array
+
+
+TODO:
+	-Come up with all constraints in ConstraintSet
+	-smartSolve
+	-dumbSolve
+	-Drink a beer
