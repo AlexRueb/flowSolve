@@ -120,18 +120,27 @@ class Maze {
         if (csp.isComplete(board)) {
             return board;
         }
-        String curColor = findNextColor(board);
+        //find an unassigned node
+        Node curColor = findNextColor(board);
 
-        //if fails
-        return null;
+        //loop through every possible color this node could be
+        
+            //assign that color to this node
+            
+            //pass the new board to csp to see if it fails
+            
+            //if it doesnt fail, pass new board to dumbBackTrack
+            
+            //if fails
+            return null;
 
     }
 
-    public String findNextColor(Node[][] board) {
+    public Node findNextColor(Node[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j].solved = false) {
-                    return board[i][j].color;
+                    return board[i][j];
                 }
             }
         }
