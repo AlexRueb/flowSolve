@@ -23,7 +23,7 @@ class ConstraintSet {
         if (x.right.color.equals(x.color)) {
             same++;
         }
-        return same > 1;
+        return same > 2;
     }
     
     public boolean checkOrigin(Node[][] board){
