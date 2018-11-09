@@ -87,10 +87,6 @@ class Maze {
                 if (j != y - 1) {
                     nodeArr[i][j].right = nodeArr[i][j + 1];
                 }
-                //adds all of the colors to the nodes possible colors
-                if (nodeArr[i][j].color.equals("_")) {
-                    nodeArr[i][j].colors.addAll(colors);
-                }
             }
         }
         return nodeArr;
@@ -121,10 +117,10 @@ class Maze {
             return board;
         }
         //find an unassigned node
-        Node curColor = findNextColor(board);
+        Node curNode = findNextColor(board);
 
         //loop through every possible color this node could be
-        
+        //FOR LOOP HERE
             //assign that color to this node
             
             //pass the new board to csp to see if it fails
@@ -139,8 +135,10 @@ class Maze {
     public Node findNextColor(Node[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                if (board[i][j].solved = false) {
-                    return board[i][j];
+                if (board[i][j].color == null) {
+                    if (board[i][j].hasColoredNeighbor()) {
+                        return board[i][j];
+                    }
                 }
             }
         }
