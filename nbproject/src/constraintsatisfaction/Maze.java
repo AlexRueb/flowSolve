@@ -121,22 +121,24 @@ class Maze {
             return board;
         }
         //find an unassigned node
-        Node curColor = findNextColor(board);
-
-        //loop through every possible color this node could be
+        Node curNode = selectUnassignedVariable(board);
+        //loop through all colors that could be assigned to it
         
-            //assign that color to this node
-            
-            //pass the new board to csp to see if it fails
-            
-            //if it doesnt fail, pass new board to dumbBackTrack
-            
-            //if fails
+            //assign randomly one of those colors
+        
+            //pass the board into csp to see if it broke anything
+        
+            //if it didnt fail, call dumbBackTrack on the new version of the board
+        
+            //if it fails
             return null;
 
     }
 
-    public Node findNextColor(Node[][] board) {
+    public String orderDomainValue(Node var, Node[][] assignment, ConstraintSatisfaction csp){
+        return null;
+    }
+    public Node selectUnassignedVariable(Node[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j].solved = false) {
