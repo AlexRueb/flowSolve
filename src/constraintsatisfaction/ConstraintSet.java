@@ -43,7 +43,9 @@ class ConstraintSet {
                     if (n.right.color.equals(n.color)) {
                         same++;
                     }
-                    return same <= 1;
+                    if(same > 1){
+                        return false;
+                    }
                 }
             }
         }
