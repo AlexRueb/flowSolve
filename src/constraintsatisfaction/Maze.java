@@ -125,6 +125,7 @@ class Maze {
         for(String s : curNode.colors){
             //assign that color to this node
             curNode.color = s;
+            printBoard(board);
             //pass the new board to csp to see if it fails
             if(csp.notBroken(board)){
                 dumbBackTrack(board, csp);
