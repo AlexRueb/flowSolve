@@ -132,11 +132,11 @@ class Maze {
                 return board;
             }
             //if it doesnt fail, pass new board to dumbBackTrack
-            
+            curNode.color = "_";
             //if fails
-            return null;
+            
         }
-        return board;
+        return null;
     }
 
     public Node findNextColor(Node[][] board) {
