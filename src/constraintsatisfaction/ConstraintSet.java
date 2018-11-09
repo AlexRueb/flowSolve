@@ -29,20 +29,22 @@ class ConstraintSet {
     public boolean checkOrigin(Node[][] board){
         for(Node[] row : board){
             for(Node n : row){
-                int same = 0;
-                if (n.up.color.equals(n.color)) {
-                    same++;
+                if(n.startNode){
+                    int same = 0;
+                    if (n.up.color.equals(n.color)) {
+                        same++;
+                    }
+                    if (n.down.color.equals(n.color)) {
+                        same++;
+                    }
+                    if (n.left.color.equals(n.color)) {
+                        same++;
+                    }
+                    if (n.right.color.equals(n.color)) {
+                        same++;
+                    }
+                    return same <= 1;
                 }
-                if (n.down.color.equals(n.color)) {
-                    same++;
-                }
-                if (n.left.color.equals(n.color)) {
-                    same++;
-                }
-                if (n.right.color.equals(n.color)) {
-                    same++;
-                }
-                return same <= 1;
             }
         }
         return true;
