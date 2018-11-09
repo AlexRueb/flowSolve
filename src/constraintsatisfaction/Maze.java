@@ -120,16 +120,19 @@ class Maze {
         Node curNode = findNextColor(board);
 
         //loop through every possible color this node could be
+        
         //FOR LOOP HERE
+        for(String s : curNode.colors){
             //assign that color to this node
-            
+            curNode.color = s;
             //pass the new board to csp to see if it fails
-            
+            if(csp.notBroken(board)){}
             //if it doesnt fail, pass new board to dumbBackTrack
             
             //if fails
             return null;
-
+        }
+        return board;
     }
 
     public Node findNextColor(Node[][] board) {
