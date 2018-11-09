@@ -37,28 +37,28 @@ class Node {
 
     //returns true if node has colored neighbors that aren't already solved
     public boolean hasColoredNeighbor() {
-        if (!left.solved && left.color != null){
+        if ((left != null) && (!left.solved) && (left.color != null)) {
             colors.add(left.color);
         }
-        if (!right.solved && left.color != null){
+        if ((right != null) && (!right.solved) && (right.color != null)) {
             colors.add(right.color);
         }
-        if (!up.solved && left.color != null){
+        if ((up != null) && (!up.solved) && (up.color != null)) {
             colors.add(up.color);
         }
-        if (!down.solved && left.color != null){
+        if ((down != null) && (!down.solved) && (down.color != null)) {
             colors.add(down.color);
         }
-        if (!left.solved) {
+        if ((left != null) && (!left.solved)) {
             return true;
         }
-        if (!up.solved) {
+        if ((up != null) && (!up.solved)) {
             return true;
         }
-        if (!right.solved) {
+        if ((right != null) && (!right.solved)) {
             return true;
         }
-        if (!down.solved) {
+        if ((down != null) && (!down.solved)) {
             return true;
         } else {
             return false;
