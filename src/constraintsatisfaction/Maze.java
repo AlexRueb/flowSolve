@@ -116,25 +116,25 @@ class Maze {
         if (csp.isComplete(board)) {
             return board;
         }
+        Node[][] backup = new Node[board.length][board.length];
+        System.arraycopy(board, 0, backup, 0, board.length);
         //find an unassigned node
-        Node curNode = findNextColor(board);
+        Node curNode = findNextColor(backup);
 
         //loop through every possible color this node could be
-        
-        //FOR LOOP HERE
-        for(String s : curNode.colors){
+        for (String s : curNode.colors) {
             //assign that color to this node
             curNode.color = s;
-            printBoard(board);
+            printBoard(backup);
             //pass the new board to csp to see if it fails
-            if(csp.notBroken(board)){
-                dumbBackTrack(board, csp);
-                return board;
+            if (csp.notBroken(backup)) {
+                if (dumbBackTrack(backup, csp) != null) {
+                    return backup;
+                }
             }
             //if it doesnt fail, pass new board to dumbBackTrack
-            curNode.color = "_";
             //if fails
-            
+
         }
         return null;
     }
