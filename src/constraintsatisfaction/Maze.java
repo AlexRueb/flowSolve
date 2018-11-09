@@ -126,7 +126,10 @@ class Maze {
             //assign that color to this node
             curNode.color = s;
             //pass the new board to csp to see if it fails
-            if(csp.notBroken(board)){}
+            if(csp.notBroken(board)){
+                dumbBackTrack(board, csp);
+                return board;
+            }
             //if it doesnt fail, pass new board to dumbBackTrack
             
             //if fails
@@ -138,7 +141,7 @@ class Maze {
     public Node findNextColor(Node[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                if (board[i][j].color == null) {
+                if (board[i][j].color.equals("_")) {
                     if (board[i][j].hasColoredNeighbor()) {
                         return board[i][j];
                     }

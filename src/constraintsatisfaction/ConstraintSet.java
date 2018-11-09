@@ -26,7 +26,11 @@ class ConstraintSet {
         return same > 1;
     }
     
-    public boolean isComplete(Node[][] board){
+    public boolean notBroken(Node[][] board){
         return true;
+    }
+    
+    public boolean isComplete(Node[][] board){
+        return false;
     }
 }
