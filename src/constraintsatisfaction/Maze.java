@@ -22,11 +22,6 @@ class Maze {
     public void solveMaze(String[][] board, int choice) {
         Node[][] nodeArr = setup(board);
 
-        colors.add("B");
-        colors.add("R");
-        colors.add("O");
-        colors.add("Y");
-        colors.add("G");
         //If smart choice
         if (choice == 1) {
             System.out.println("smart");
@@ -116,35 +111,40 @@ class Maze {
         return dumbBackTrack(board, constraint);
     }
 
-    public Node[][] dumbBackTrack(Node[][] board, ConstraintSet csp) {
-        //if succeeds
-        if (csp.isComplete(board)) {
+    public Node[][] dumbBackTrack(Node[][] board, ConstraintSet csp){
+       if (csp.isComplete(board)) {
             return board;
-        }
-        Node[][] backup = new Node[board.length][board.length];
-
-        backup = board;
-
-        //find an unassigned node
-        Node curNode = findNextColor(backup);
-        //curNode.colors = this.colors;
-        //loop through every possible color this node could be
-        for (String s : curNode.colors) {
-            //assign that color to this node
-            curNode.color = s;
-            printBoard(backup);
-            //pass the new board to csp to see if it fails
-            if (csp.notBroken(backup)) {
-                dumbBackTrack(backup, csp);
-            } else {
-                curNode.color = "_";
-            }
-            //if it doesnt fail, pass new board to dumbBackTrack
-            //if fails
-
-        }
-        return null;
+        } 
     }
+//    public Node[][] dumbBackTrack(Node[][] board, ConstraintSet csp) {
+//        //if succeeds
+//        if (csp.isComplete(board)) {
+//            return board;
+//        }
+//        Node[][] backup = new Node[board.length][board.length];
+//
+//        backup = board;
+//
+//        //find an unassigned node
+//        Node curNode = findNextColor(backup);
+//        //curNode.colors = this.colors;
+//        //loop through every possible color this node could be
+//        for (String s : curNode.colors) {
+//            //assign that color to this node
+//            curNode.color = s;
+//            printBoard(backup);
+//            //pass the new board to csp to see if it fails
+//            if (csp.notBroken(backup)) {
+//                dumbBackTrack(backup, csp);
+//            } else {
+//                curNode.color = "_";
+//            }
+//            //if it doesnt fail, pass new board to dumbBackTrack
+//            //if fails
+//
+//        }
+//        return board;
+//    }
 
     public Node findNextColor(Node[][] board) {
         for (int i = 0; i < board.length; i++) {
