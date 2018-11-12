@@ -38,16 +38,24 @@ class Node {
     //returns true if node has colored neighbors that aren't already solved
     public boolean hasColoredNeighbor() {
         if ((left != null) && (!left.solved) && (!left.color.equals("_"))) {
-            colors.add(left.color);
+            if (!colors.contains(left.color)) {
+                colors.add(left.color);
+            }
         }
         if ((right != null) && (!right.solved) && (!right.color.equals("_"))) {
-            colors.add(right.color);
+            if (!colors.contains(right.color)) {
+                colors.add(right.color);
+            }
         }
         if ((up != null) && (!up.solved) && (!up.color.equals("_"))) {
-            colors.add(up.color);
+            if (!colors.contains(up.color)) {
+                colors.add(up.color);
+            }
         }
         if ((down != null) && (!down.solved) && (!down.color.equals("_"))) {
-            colors.add(down.color);
+            if (!colors.contains(down.color)) {
+                colors.add(down.color);
+            }
         }
         if ((left != null) && (!left.solved)) {
             return true;
