@@ -65,7 +65,7 @@ class Maze {
                         colors.add(board[i][j]);
                     }
                 }
-
+                nodeArr[i][j].colors = colors;
                 nodeArr[i][j].color = board[i][j];
                 nodeArr[i][j].xCord = j;
                 nodeArr[i][j].yCord = i;
