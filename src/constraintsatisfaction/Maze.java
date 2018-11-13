@@ -17,7 +17,7 @@ class Maze {
     Node[][] board;
     ConstraintSet constraint = new ConstraintSet();
     public List<String> colors = new ArrayList<>();
-
+    public int printCt = 0;
     //Choice is whether to do the smart way (forward checking) and 
     //dumb way (no forward checking)
     public void solveMaze(String[][] board, int choice) {
@@ -121,7 +121,9 @@ class Maze {
         Node curNode = findNextColor(board);
         for (String s : curNode.colors) {
             curNode.color = s;
+            
             printBoard(board);
+            System.out.println(printCt);
             if (csp.notBroken(board)) {
                 Node[][] assignment = dumbBackTrack(board, csp);
                 if (assignment == null) {
@@ -176,7 +178,8 @@ class Maze {
     }
 
     public void printBoard(Node[][] board) {
-        System.out.println(board.length);
+        printCt++;
+        //System.out.println(board.length);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 System.out.print(board[i][j].color);
