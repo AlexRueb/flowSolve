@@ -18,6 +18,7 @@ class Maze {
     ConstraintSet constraint = new ConstraintSet();
     public List<String> colors = new ArrayList<>();
     public int printCt = 0;
+    public int moveCt = 0;
 
     //Choice is whether to do the smart way (forward checking) and 
     //dumb way (no forward checking)
@@ -116,64 +117,33 @@ class Maze {
     //Nodes are variables
     //Colors are the domain for each Node
     public Node[][] dumbBackTrack(Node[][] board, ConstraintSet csp) {
-        if (csp.isComplete(board) && !csp.isBroke(board)) {
+        //printBoard(board);
+        if (!csp.isComplete(board)) {
+        } else {
+            System.out.println("You solved the board in " + moveCt + " moves!");
+            //printBoard(board);
             return board;
         }
-        if (csp.isComplete(board) && csp.isBroke(board)) {
-            return null;
-        }
-//        if (printCt == 244) {
-//            System.out.println("");
-//        }
-        Node curNode = findNextColor(board);
-        for (String s : curNode.colors) {
-            curNode.color = s;
-
-            printBoard(board);
-            System.out.println(printCt);
-            if (!csp.isBroke(board)) {
-                Node[][] assignment = dumbBackTrack(board, csp);
-                if (assignment == null) {
-                } else {
-                    return assignment;
+        Node curNode = smartFindNode(board);
+        //Node curNode = findNextNode(board);
+        if (curNode != null) {
+            for (String s : curNode.colors) {
+                curNode.color = s;
+                if (!csp.isBroke(board)) {
+                    Node[][] assignment = dumbBackTrack(board, csp);
+                    if (assignment == null) {
+                    } else {
+                        return assignment;
+                    }
                 }
+                curNode.color = "_";
             }
-            curNode.color = "_";
-            printBoard(board);
         }
         return null;
     }
-//    public Node[][] dumbBackTrack(Node[][] board, ConstraintSet csp) {
-//        //if succeeds
-//        if (csp.isComplete(board)) {
-//            return board;
-//        }
-//        Node[][] backup = new Node[board.length][board.length];
-//
-//        backup = board;
-//
-//        //find an unassigned node
-//        Node curNode = findNextColor(backup);
-//        //curNode.colors = this.colors;
-//        //loop through every possible color this node could be
-//        for (String s : curNode.colors) {
-//            //assign that color to this node
-//            curNode.color = s;
-//            printBoard(backup);
-//            //pass the new board to csp to see if it fails
-//            if (csp.notBroken(backup)) {
-//                dumbBackTrack(backup, csp);
-//            } else {
-//                curNode.color = "_";
-//            }
-//            //if it doesnt fail, pass new board to dumbBackTrack
-//            //if fails
-//
-//        }
-//        return board;
-//    }
 
-    public Node findNextColor(Node[][] board) {
+    public Node findNextNode(Node[][] board) {
+        moveCt++;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j].color.equals("_")) {
@@ -184,17 +154,86 @@ class Maze {
         return null;
     }
 
-    public void printBoard(Node[][] board) {
-        printCt++;
-        //System.out.println(board.length);
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print(board[i][j].color);
+    //finds the most constrained variable
+    //(variable with least amount of unassigned neighbors)
+    public Node smartFindNode(Node[][] board) {
+        moveCt++;
+        Node next = new Node();
+        int nextConstraint = 4;
+        for (Node[] row : board) {
+            for (Node n : row) {
+                if (n.color.equals("_")) {
+                    int constraints = 4;
+                    if (n.up != null && !n.up.color.equals("_")) {
+                        constraints--;
+                    }
+                    if (n.down != null && !n.down.color.equals("_")) {
+                        constraints--;
+                    }
+                    if (n.left != null && !n.left.color.equals("_")) {
+                        constraints--;
+                    }
+                    if (n.right != null && !n.right.color.equals("_")) {
+                        constraints--;
+                    }
+                    if (constraints == 0) {
+                        return null;
+                    }
+                    if (nextConstraint > constraints) {
+                        next = n;
+                        nextConstraint = constraints;
+                    }
+                }
             }
-            System.out.println("");
         }
-        System.out.println(" ");
-        System.out.println(" ");
+        return next;
     }
 
+    //even better way of picking next variable
+    //finds a start node that isn't solved, solves for only that color
+    public Node smarterFindNode(Node[][] board) {
+        moveCt++;
+        Node next = new Node();
+        for (Node[] row : board) {
+            for (Node n : row) {
+                if (n.startNode && !n.solved) {
+                    next = findNext(board, n);
+                    if (next == null){
+                    }
+                    else{
+                        return next;
+                    }
+                }
+            }
+        }
+        return next;
+    }
+
+    public void printBoard(Node[][] board) {
+        printCt++;
+        boolean print = true;
+        for (Node[] row : board) {
+            for (Node n : row) {
+                if (n.color.equals("_")) {
+                    print = false;
+                    break;
+                }
+
+            }
+        }
+        if (print) {
+            //System.out.println(printCt);
+            for (Node[] board1 : board) {
+                for (int j = 0; j < board.length; j++) {
+                    System.out.print(board1[j].color);
+                }
+                System.out.println("");
+            }
+            System.out.println(" ");
+        }
+    }
+
+    private Node findNext(Node[][] board, Node n) {
+        return null;
+    }
 }
