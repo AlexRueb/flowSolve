@@ -18,5 +18,5 @@ TODO:
 
 	-Come up with all constraints in ConstraintSet
 	-smartSolve
-	-dumbSolve
+		-smarterFindNode - finds unsolved color and returns next possible spot
 	-Drink a beer
