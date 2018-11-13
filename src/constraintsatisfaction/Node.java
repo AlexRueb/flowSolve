@@ -3,9 +3,9 @@ package constraintsatisfaction;
 import java.util.ArrayList;
 import java.util.List;
 
+//each node is a variable
 class Node {
-    //each node is a variable
-
+    
     //where the node is
     public int xCord;
     public int yCord;
@@ -25,51 +25,8 @@ class Node {
     public int xDist;
     public int yDist;
 
-    //updates the possible colors that a node can have --> inference
-    public boolean checkPossible(char color) {
-        return true;
-    }
-
     public void updateGoal(int x, int y) {
         xDist = x - xCord;
         yDist = y - yCord;
-    }
-
-    //returns true if node has colored neighbors that aren't already solved
-    public boolean hasColoredNeighbor() {
-        if ((left != null) && (!left.solved) && (!left.color.equals("_"))) {
-            if (!colors.contains(left.color)) {
-                colors.add(left.color);
-            }
-        }
-        if ((right != null) && (!right.solved) && (!right.color.equals("_"))) {
-            if (!colors.contains(right.color)) {
-                colors.add(right.color);
-            }
-        }
-        if ((up != null) && (!up.solved) && (!up.color.equals("_"))) {
-            if (!colors.contains(up.color)) {
-                colors.add(up.color);
-            }
-        }
-        if ((down != null) && (!down.solved) && (!down.color.equals("_"))) {
-            if (!colors.contains(down.color)) {
-                colors.add(down.color);
-            }
-        }
-        if ((left != null) && (!left.solved)) {
-            return true;
-        }
-        if ((up != null) && (!up.solved)) {
-            return true;
-        }
-        if ((right != null) && (!right.solved)) {
-            return true;
-        }
-        if ((down != null) && (!down.solved)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
