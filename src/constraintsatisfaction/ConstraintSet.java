@@ -35,7 +35,7 @@ class ConstraintSet {
         for (Node[] row : board) {
             for (Node n : row) {
                 int same = 0;
-                if (!n.color.equals("_")) {
+                if (n.color.equals("_")) {
                     ;
                 } else {
                     if (n.up != null && n.up.color.equals(n.color)) {
