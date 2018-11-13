@@ -7,6 +7,37 @@ class ConstraintSet {
     //2 --> each Node will have a color --> no "_"
     //3 --> each origin node has exactly 1 of the same color neighbors
     //always run immediately after assigning a previously blank node a new color
+    public boolean zig(Node[][] maze, int x, int y) {
+        Node n = maze[y][x];
+        int same = 0;
+        if (n.up != null && n.up.color.equals(n.color)) {
+            same++;
+        }
+        if (n.down != null && n.down.color.equals(n.color)) {
+            same++;
+        }
+        if (n.left != null && n.left.color.equals(n.color)) {
+            same++;
+        }
+        if (n.right != null && n.right.color.equals(n.color)) {
+            same++;
+        }
+        if ((same > 2) && !n.color.equals("_")) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isBroke(Node[][] board) {
+        if (blocked(board)) {
+            return true;
+        }
+        if (doesZig(board)) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean doesZig(Node[][] x) {
         for (Node[] row : x) {
             for (Node n : row) {
@@ -23,7 +54,10 @@ class ConstraintSet {
                 if (n.right != null && n.right.color.equals(n.color)) {
                     same++;
                 }
-                if ((same > 2) && !n.color.equals("_")){
+                if (n.startNode && same>=2){
+                    return true;
+                }
+                if ((same > 2) && !n.color.equals("_")) {
                     return true;
                 }
             }
