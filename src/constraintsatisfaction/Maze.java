@@ -123,11 +123,14 @@ class Maze {
             curNode.color = s;
             printBoard(board);
             if (csp.notBroken(board)) {
-                return dumbBackTrack(board, csp);
+                Node[][] assignment = dumbBackTrack(board, csp);
+                if (assignment == null) {
+                    ;
+                } else {
+                    return assignment;
+                }
             }
-
             curNode.color = "_";
-            
         }
         return null;
     }
@@ -165,7 +168,6 @@ class Maze {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j].color.equals("_")) {
-
                     return board[i][j];
                 }
             }
