@@ -23,7 +23,9 @@ class ConstraintSet {
                 if (n.right != null && n.right.color.equals(n.color)) {
                     same++;
                 }
-                return same > 2;
+                if ((same > 2) && !n.color.equals("_")){
+                    return true;
+                }
             }
         }
         return false;
@@ -33,7 +35,7 @@ class ConstraintSet {
         for (Node[] row : board) {
             for (Node n : row) {
                 int same = 0;
-                if (n.color != "_") {
+                if (!n.color.equals("_")) {
                     ;
                 } else {
                     if (n.up != null && n.up.color.equals(n.color)) {
