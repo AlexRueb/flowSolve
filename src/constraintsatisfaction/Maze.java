@@ -198,15 +198,18 @@ class Maze {
             for (Node n : row) {
                 if (n.startNode && !n.solved) {
                     next = findNext(board, n);
-                    if (next == null){
-                    }
-                    else{
+                    if (next == null) {
+                    } else {
                         return next;
                     }
                 }
             }
         }
         return next;
+    }
+
+    public Node findNext(Node[][] board, Node n) {
+        return null;
     }
 
     public void printBoard(Node[][] board) {
@@ -233,7 +236,4 @@ class Maze {
         }
     }
 
-    private Node findNext(Node[][] board, Node n) {
-        return null;
-    }
 }
