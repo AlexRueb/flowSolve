@@ -118,6 +118,9 @@ class Maze {
         if (csp.isComplete(board) && csp.notBroken(board)) {
             return board;
         }
+        if(printCt == 166){
+            System.out.println("");
+        }
         Node curNode = findNextColor(board);
         for (String s : curNode.colors) {
             curNode.color = s;
