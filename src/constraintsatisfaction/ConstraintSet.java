@@ -164,7 +164,17 @@ class ConstraintSet {
         return false;
     }
 
-    
+    //calls doesZig, blocked, and forwardCheck. Returns true if any return true
+    public boolean smartIsBroke(Node[][] board) {
+        
+        return true;
+    }
+
+    //implements arc consistency
+    public boolean forwardCheck(){
+        
+        return false;
+    }
 
     
     
