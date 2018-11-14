@@ -97,7 +97,33 @@ class Maze {
 
     public Node[][] smartSolve(Node[][] board) {
 
-        return board;
+        return smartForwardCheck(board, constraint);
+    }
+    
+    public Node[][] smartForwardCheck(Node[][] board, ConstraintSet csp) {
+        //printBoard(board);
+        if (!csp.isComplete(board)) {
+        } else {
+            System.out.println("You solved the board in " + moveCt + " moves!");
+            //printBoard(board);
+            return board;
+        }
+        Node curNode = smartFindNode(board);
+        //Node curNode = findNextNode(board);
+        if (curNode != null) {
+            for (String s : curNode.colors) {
+                curNode.color = s;
+                if (!csp.smartIsBroke(board)) {
+                    Node[][] assignment = dumbBackTrack(board, csp);
+                    if (assignment == null) {
+                    } else {
+                        return assignment;
+                    }
+                }
+                curNode.color = "_";
+            }
+        }
+        return null;
     }
 
     public Node[][] dumbSolve(Node[][] board) {
