@@ -15,7 +15,7 @@ class ConstraintSatisfaction {
         String[][] board = import_maze("src/constraintsatisfaction/5x5maze.txt");
         Maze maze = new Maze();
         long curTime = System.currentTimeMillis();
-        maze.solveMaze(board, 1);
+        //maze.solveMaze(board, 1);
         maze.solveMaze(board, 2);
         curTime =System.currentTimeMillis() - curTime;
         System.out.println(curTime + " Milliseconds");
@@ -39,11 +39,11 @@ class ConstraintSatisfaction {
         maze.solveMaze(board, 2);
         curTime =System.currentTimeMillis() - curTime;
         System.out.println(curTime + " Milliseconds");
-        board = import_maze("src/constraintsatisfaction/12x12maze.txt");
-        curTime = System.currentTimeMillis();
-        maze.solveMaze(board, 2);
-        curTime =System.currentTimeMillis() - curTime;
-        System.out.println(curTime + " Milliseconds");
+        //board = import_maze("src/constraintsatisfaction/12x12maze.txt");
+        //curTime = System.currentTimeMillis();
+        //maze.solveMaze(board, 2);
+        //curTime =System.currentTimeMillis() - curTime;
+        //System.out.println(curTime + " Milliseconds");
     }
 
     static String[][] import_maze(String f) throws IOException {

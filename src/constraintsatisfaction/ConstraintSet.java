@@ -1,5 +1,8 @@
 package constraintsatisfaction;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 class ConstraintSet {
 
     //this is where we will have all of our constraints
@@ -105,6 +108,47 @@ class ConstraintSet {
         } else {
             return false;
         }
+    }
+    
+    public boolean ac3(Node[][] board, Node curNode){
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(curNode.up);
+        queue.add(curNode.right);
+        queue.add(curNode.down);
+        queue.add(curNode.left);
+
+        while(!queue.isEmpty()){
+            Node n = queue.remove();
+            if(revise(board, curNode, n)){
+                if(curNode.colors.isEmpty()) return false;
+                for(Node n1 : curNode.neighbors){
+                    if(n1 != n){
+                        queue.add(n1);
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+    public boolean revise(Node[][] board, Node n1, Node n2){
+        boolean revised = false;
+        for(String color : n1.colors){
+            // if no color in n2 satisfies constraints with color set in n1 (english)
+            n1.color = color;
+            int counter = 0;
+            for(String ncolor : n2.colors){
+                n2.color = ncolor;
+                if(!isBroke(board)){
+                  counter++;  
+                } 
+            }
+            if(counter == 0){
+                n1.colors.remove(color);
+                revised = true;
+            }
+        }
+        return revised;
     }
     
     //makes sure that no nodes are blocked in

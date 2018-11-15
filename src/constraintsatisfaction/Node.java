@@ -14,6 +14,7 @@ class Node {
     public Node right;
     public Node up;
     public Node down;
+    public Node[] neighbors = {left, right, up, down};
     public boolean startNode = false;
     public int sameCol = 0;
 

@@ -1,7 +1,9 @@
 package constraintsatisfaction;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -102,28 +104,52 @@ class Maze {
     
     public Node[][] smartForwardCheck(Node[][] board, ConstraintSet csp) {
         //printBoard(board);
-        if (!csp.isComplete(board)) {
-        } else {
+        if (csp.isComplete(board)) {
             System.out.println("You solved the board in " + moveCt + " moves!");
             //printBoard(board);
             return board;
         }
-        Node curNode = smartFindNode(board);
+        // SELECT-UNASSIGNED-VARIABLE
+        Node curNode = smarterFindNode(board);
         //Node curNode = findNextNode(board);
         if (curNode != null) {
-            for (String s : curNode.colors) {
+            //ORDER-DOMAIN-VALUES
+            for (String s : orderDomainValues(curNode.colors, csp)) {
                 curNode.color = s;
-                if (!csp.smartIsBroke(board)) {
-                    Node[][] assignment = dumbBackTrack(board, csp);
-                    if (assignment == null) {
-                    } else {
-                        return assignment;
+                if(inferences(board, csp, curNode)){
+                    if (!csp.smartIsBroke(board)) {
+                        Node[][] assignment = dumbBackTrack(board, csp);
+                        if (assignment == null) {
+                        } else {
+                            return assignment;
+                        }
                     }
                 }
                 curNode.color = "_";
             }
         }
         return null;
+    }
+    
+    public boolean inferences(Node[][] board, ConstraintSet csp, Node curNode){
+        // reduce domain of curNode based on forward checking
+        return false;
+    }
+    
+    public boolean ac3(Node[][] board, Node curNode){
+        Queue<String> queue = new LinkedList<>();
+        queue.addAll(curNode.colors);
+        
+        while(!queue.isEmpty()){
+            String s = queue.remove();
+        }
+        return true;
+    }
+    
+    // Returns possible domain values for the current node
+    public List<String> orderDomainValues(List<String> colors, ConstraintSet csp){
+        
+        return colors;
     }
 
     public Node[][] dumbSolve(Node[][] board) {
