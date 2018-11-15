@@ -30,7 +30,7 @@ class Maze {
         //If smart choice
         if (choice == 1) {
             System.out.println("smart");
-            nodeArr = smartSolve(nodeArr);
+            smartSolve(nodeArr);
             printBoard(nodeArr);
 
             //If dumb choice
@@ -97,9 +97,9 @@ class Maze {
         return nodeArr;
     }
 
-    public Node[][] smartSolve(Node[][] board) {
+    public void smartSolve(Node[][] board) {
 
-        return smartForwardCheck(board, constraint);
+        smartForwardCheck(board, constraint);
     }
     
     public Node[][] smartForwardCheck(Node[][] board, ConstraintSet csp) {
@@ -144,7 +144,7 @@ class Maze {
         return colors;
     }
 
-    public Node[][] dumbSolve(Node[][] board) {
+    public void dumbSolve(Node[][] board) {
         /*pseudo-code
         find first color where solved != true
         find coordinates of destination color
@@ -155,7 +155,7 @@ class Maze {
         solved = true
          */
 
-        return dumbBackTrack(board, constraint);
+        dumbBackTrack(board, constraint);
     }
 
     //Nodes are variables
@@ -268,6 +268,7 @@ class Maze {
 
             }
         }
+        print = true;
         if (print) {
             //System.out.println(printCt);
             for (Node[] board1 : board) {
