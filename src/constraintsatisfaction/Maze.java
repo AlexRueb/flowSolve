@@ -114,11 +114,12 @@ class Maze {
         //Node curNode = findNextNode(board);
         if (curNode != null) {
             //ORDER-DOMAIN-VALUES
-            for (String s : orderDomainValues(curNode.colors, csp)) {
+            for (String s : curNode.colors) {
                 curNode.color = s;
+                List<String> backupColors = curNode.colors;
                 if(inferences(board, csp, curNode)){
-                    if (!csp.smartIsBroke(board)) {
-                        Node[][] assignment = dumbBackTrack(board, csp);
+                    if (!csp.isBroke(board)) {
+                        Node[][] assignment = smartForwardCheck(board, csp);
                         if (assignment == null) {
                         } else {
                             return assignment;
@@ -126,6 +127,7 @@ class Maze {
                     }
                 }
                 curNode.color = "_";
+                curNode.colors = backupColors;
             }
         }
         return null;
@@ -133,17 +135,7 @@ class Maze {
     
     public boolean inferences(Node[][] board, ConstraintSet csp, Node curNode){
         // reduce domain of curNode based on forward checking
-        return false;
-    }
-    
-    public boolean ac3(Node[][] board, Node curNode){
-        Queue<String> queue = new LinkedList<>();
-        queue.addAll(curNode.colors);
-        
-        while(!queue.isEmpty()){
-            String s = queue.remove();
-        }
-        return true;
+        return csp.ac3(board, curNode);
     }
     
     // Returns possible domain values for the current node
