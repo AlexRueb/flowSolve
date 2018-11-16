@@ -228,10 +228,39 @@ class ConstraintSet {
         return true;
     }
 
-    //implements arc consistency
-    public boolean forwardCheck() {
+    //checks to see if any colors are complete
+    //returns false if any node has no more variables
+    public boolean forwardCheck(Node[][] board) {
+        for (Node[] row : board) {
+            for (Node n : row) {
+                if (n.startNode && !n.solved) {
+                    boolean temp = isConnected(n, null);
+                    if (temp) {
+                        if(remove(board, n.color)){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
 
-        return false;
+    //removes the specified color from all remaining nodes
+    //returns true if no colors left
+    public boolean remove(Node[][] board, String color) {
+        for (Node[] row : board) {
+            for (Node n : row) {
+                if (n.color.equals("_")) {
+                    n.colors.remove(color);
+                    if(n.colors.isEmpty()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 }
