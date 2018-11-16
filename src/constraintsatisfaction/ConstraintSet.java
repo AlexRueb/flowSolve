@@ -1,5 +1,6 @@
 package constraintsatisfaction;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -143,7 +144,7 @@ class ConstraintSet {
 
     public boolean revise(Node[][] board, Node n1, Node n2) {
         boolean revised = false;
-        List<String> tempColors = n1.colors;
+        List<String> tempColors = new ArrayList<>();
         for (String color : n1.colors) {
             // if no color in n2 satisfies constraints with color set in n1 (english)
             n1.color = color;
@@ -152,6 +153,7 @@ class ConstraintSet {
                 n2.color = ncolor;
                 if (!isBroke(board)) {
                     counter++;
+                    tempColors.add(color);
                 }
             }
             if (counter == 0) {
