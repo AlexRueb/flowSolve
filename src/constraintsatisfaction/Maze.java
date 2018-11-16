@@ -110,8 +110,8 @@ class Maze {
             return board;
         }
         // SELECT-UNASSIGNED-VARIABLE
-        Node curNode = smarterFindNode(board);
-        //Node curNode = findNextNode(board);
+        //Node curNode = smarterFindNode(board);
+        Node curNode = findNextNode(board);
         if (curNode != null) {
             //ORDER-DOMAIN-VALUES
             for (String s : curNode.colors) {
