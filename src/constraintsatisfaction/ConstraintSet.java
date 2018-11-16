@@ -9,7 +9,6 @@ class ConstraintSet {
     //1 --> each non-startNode will have exactly 2 of the same color neighbors
     //2 --> each Node will have a color --> no "_"
     //3 --> each origin node will be connected to the other origin node of same color
-      
     //1 --> Is there any zigzags now?
     //returns true if there IS a zig zag
     public boolean doesZig(Node[][] x) {
@@ -38,7 +37,7 @@ class ConstraintSet {
         }
         return false;
     }
-    
+
     //2 --> Is every Node filled in
     //return true if all constraints are satisfied
     public boolean isComplete(Node[][] board) {
@@ -62,7 +61,7 @@ class ConstraintSet {
         }
         return true;
     }
-    
+
     //3 --> calls isConnected to see if ALL start nodes are connected
     //returns true if all start nodes are connected to eachother
     public boolean allIsConnected(Node[][] maze) {
@@ -80,7 +79,7 @@ class ConstraintSet {
         }
         return true;
     }
-    
+
     //recursive method returns true if two start nodes are connected
     public boolean isConnected(Node curNode, Node last) {
         if (curNode.left != null && curNode.left.color.equals(curNode.color)) {
@@ -109,20 +108,30 @@ class ConstraintSet {
             return false;
         }
     }
-    
-    public boolean ac3(Node[][] board, Node curNode){
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(curNode.up);
-        queue.add(curNode.right);
-        queue.add(curNode.down);
-        queue.add(curNode.left);
 
-        while(!queue.isEmpty()){
+    public boolean ac3(Node[][] board, Node curNode) {
+        Queue<Node> queue = new LinkedList<>();
+        if (curNode.up != null) {
+            queue.add(curNode.up);
+        }
+        if (curNode.right != null) {
+            queue.add(curNode.right);
+        }
+        if (curNode.down != null) {
+            queue.add(curNode.down);
+        }
+        if (curNode.left != null) {
+            queue.add(curNode.left);
+        }
+
+        while (!queue.isEmpty()) {
             Node n = queue.remove();
-            if(revise(board, curNode, n)){
-                if(curNode.colors.isEmpty()) return false;
-                for(Node n1 : curNode.neighbors){
-                    if(n1 != n){
+            if (revise(board, curNode, n)) {
+                if (curNode.colors.isEmpty()) {
+                    return false;
+                }
+                for (Node n1 : curNode.neighbors) {
+                    if (n1 != n) {
                         queue.add(n1);
                     }
                 }
@@ -130,27 +139,27 @@ class ConstraintSet {
         }
         return true;
     }
-    
-    public boolean revise(Node[][] board, Node n1, Node n2){
+
+    public boolean revise(Node[][] board, Node n1, Node n2) {
         boolean revised = false;
-        for(String color : n1.colors){
+        for (String color : n1.colors) {
             // if no color in n2 satisfies constraints with color set in n1 (english)
             n1.color = color;
             int counter = 0;
-            for(String ncolor : n2.colors){
+            for (String ncolor : n2.colors) {
                 n2.color = ncolor;
-                if(!isBroke(board)){
-                  counter++;  
-                } 
+                if (!isBroke(board)) {
+                    counter++;
+                }
             }
-            if(counter == 0){
+            if (counter == 0) {
                 n1.colors.remove(color);
                 revised = true;
             }
         }
         return revised;
     }
-    
+
     //makes sure that no nodes are blocked in
     //returns true if a node IS blocked in
     public boolean blocked(Node[][] board) {
@@ -210,16 +219,14 @@ class ConstraintSet {
 
     //calls doesZig, blocked, and forwardCheck. Returns true if any return true
     public boolean smartIsBroke(Node[][] board) {
-        
+
         return true;
     }
 
     //implements arc consistency
-    public boolean forwardCheck(){
-        
+    public boolean forwardCheck() {
+
         return false;
     }
 
-    
-    
 }
