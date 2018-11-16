@@ -143,8 +143,8 @@ class ConstraintSet {
 
     public boolean revise(Node[][] board, Node n1, Node n2) {
         boolean revised = false;
-        List<String> previousColors = n1.colors;
-        for (String color : previousColors) {
+        List<String> tempColors = n1.colors;
+        for (String color : n1.colors) {
             // if no color in n2 satisfies constraints with color set in n1 (english)
             n1.color = color;
             int counter = 0;
@@ -155,10 +155,11 @@ class ConstraintSet {
                 }
             }
             if (counter == 0) {
-                n1.colors.remove(color);
+                tempColors.remove(color);
                 revised = true;
             }
         }
+        n1.colors = tempColors;
         return revised;
     }
 
