@@ -99,9 +99,10 @@ class Maze {
 
     public void smartSolve(Node[][] board) {
 
-        smartForwardCheck(board, constraint);
+        //smartForwardCheck(board, constraint);
+        smarterForwardCheck(board, constraint);
     }
-    
+
     public Node[][] smartForwardCheck(Node[][] board, ConstraintSet csp) {
         //printBoard(board);
         if (csp.isComplete(board)) {
@@ -117,7 +118,7 @@ class Maze {
             for (String s : curNode.colors) {
                 curNode.color = s;
                 List<String> backupColors = curNode.colors;
-                if(inferences(board, csp, curNode)){
+                if (inferences(board, csp, curNode)) {
                     if (!csp.isBroke(board)) {
                         Node[][] assignment = smartForwardCheck(board, csp);
                         if (assignment == null) {
@@ -126,21 +127,23 @@ class Maze {
                         }
                     }
                 }
+                printBoard(board);
                 curNode.color = "_";
+                printBoard(board);
                 curNode.colors = backupColors;
             }
         }
         return null;
     }
-    
-    public boolean inferences(Node[][] board, ConstraintSet csp, Node curNode){
+
+    public boolean inferences(Node[][] board, ConstraintSet csp, Node curNode) {
         // reduce domain of curNode based on forward checking
         return csp.ac3(board, curNode);
     }
-    
+
     // Returns possible domain values for the current node
-    public List<String> orderDomainValues(List<String> colors, ConstraintSet csp){
-        
+    public List<String> orderDomainValues(List<String> colors, ConstraintSet csp) {
+
         return colors;
     }
 
@@ -281,4 +284,37 @@ class Maze {
         }
     }
 
+    private Node[][] smarterForwardCheck(Node[][] board, ConstraintSet csp) {
+        //printBoard(board);
+        if (csp.isComplete(board)) {
+            System.out.println("You solved the board in " + moveCt + " moves!");
+            //printBoard(board);
+            return board;
+        }
+        // SELECT-UNASSIGNED-VARIABLE
+        //Node curNode = smarterFindNode(board);
+        Node curNode = findNextNode(board);
+        if (curNode != null) {
+            //ORDER-DOMAIN-VALUES
+            while (!curNode.colors.isEmpty()) {
+                curNode.color = curNode.colors.remove(0);
+                printBoard(board);
+                if (csp.forwardCheck(board)) {
+                    return null;
+                }
+                if (csp.isBroke(board)) {
+                    return null;
+                }
+                if (smartForwardCheck(board, csp) == null) {
+
+                }
+            }
+        }
+        return null;
+    }
+
+    //add a color in the domain to the node
+    //see if it breaks any other nodes
+    //if it doesnt --> move onto next node (recursion)]
+    //if it does --> go to the next color
 }
